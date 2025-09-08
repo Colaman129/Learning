@@ -1,4 +1,6 @@
 
+price1 = 25
+price2 = 50
 while True:
 
     try:
@@ -14,8 +16,8 @@ while True:
         print("Enter a number")
 
 if 65 > age > 18:
-    print("Your price is 50")
+    print(f"Your price is {price2}")
 elif age < 18:
-    print("Your price is 25")
+    print(f"Your price is {price1}")
 elif age > 65:
     print("You can have it for free :)")
