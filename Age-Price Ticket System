@@ -1,0 +1,21 @@
+
+while True:
+
+    try:
+        age = int(input("How old are you: "))
+        if age < 0:
+            print("Bro is not born yet")
+        elif age > 100:
+            print("I dont belive you")
+        else:
+            print(f"You are {age} years old")
+            break
+    except ValueError:
+        print("Enter a number")
+
+if 65 > age > 18:
+    print("Your price is 50")
+elif age < 18:
+    print("Your price is 25")
+elif age > 65:
+    print("You can have it for free :)")
