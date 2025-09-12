@@ -1,0 +1,49 @@
+import math 
+import random 
+import time
+
+deck = []
+
+players_cards = []
+dealers_cards = []
+
+def set_deck():
+    global deck
+    ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+    deck = ranks * 4
+    random.shuffle(deck)
+
+def choose_card():
+    return deck.pop()
+
+def hit_stand():
+      while True:
+        players_choice = input("Hit or Stand? ").lower()
+
+        if players_choice == "hit":
+            players_cards.append(choose_card())
+            print("You drew:", players_cards[-1])
+            print("Your cards:", players_cards)
+
+        elif players_choice == "stand":
+            print("You chose to stand.")
+            break  # exit the loop
+
+        else:
+            print("Invalid choice. Please type 'Hit' or 'Stand'.")
+
+
+def game_loop():
+    set_deck()
+    for i in range(2):
+        players_cards.append(choose_card())
+        dealers_cards.append(choose_card())
+
+
+    
+    print(f"dealers card is {dealers_cards[0]}")
+    time.sleep(0.5)
+    print(f"Your cards are {players_cards[0]} and {players_cards[1]}")
+    hit_stand()
+
+game_loop()
