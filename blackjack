@@ -30,7 +30,7 @@ def hand_value(hand):
     aces = hand.count("A")
     while total > 21 and aces > 0:
         total -= 10
-        aces -= 1
+        aces -= 1 #isnt necessary
     return total
         
 
