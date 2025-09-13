@@ -1,6 +1,7 @@
+
+from random import shuffle
+from time import sleep 
 import math 
-import random 
-import time
 
 deck = []
 
@@ -11,10 +12,29 @@ def set_deck():
     global deck
     ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
     deck = ranks * 4
-    random.shuffle(deck)
+    shuffle(deck)
 
 def choose_card():
     return deck.pop()
+
+def card_value(card):
+    if card in ["J","Q", "K"]:
+        return 10
+    elif card == "A":
+        return 11
+    else:
+        return int(card)
+
+def hand_value(hand):
+    total = sum(card_value(card) for card in hand)
+    aces = hand.count("A")
+    while total > 21 and aces > 0:
+        total -= 10
+        aces -= 1
+    return total
+        
+
+        
 
 def hit_stand():
       while True:
@@ -24,16 +44,43 @@ def hit_stand():
             players_cards.append(choose_card())
             print("You drew:", players_cards[-1])
             print("Your cards:", players_cards)
+            print(f"Your total value is {hand_value(players_cards)}")
+            if hand_value(players_cards) > 21:
+                print("You Bust!")
+                break
+
+
 
         elif players_choice == "stand":
             print("You chose to stand.")
+            
+            while hand_value(dealers_cards) < 17:
+                dealers_cards.append(choose_card())
+            print(f"dealers cards are {dealers_cards}")
+            
+            if hand_value(dealers_cards) > 21:
+                print("Dealer busted")
+                print("You win")
+            elif hand_value(dealers_cards) < hand_value(players_cards):
+                print("You have bigger score")
+                print("You Win")
+            elif hand_value(dealers_cards) > hand_value(players_cards) and hand_value(dealers_cards) < 21:
+                print("Dealer has bigger score")
+                print("You lost")
+            elif hand_value(dealers_cards) == hand_value(players_cards):
+                print("Its a draw")
+
             break  # exit the loop
 
         else:
             print("Invalid choice. Please type 'Hit' or 'Stand'.")
 
 
+
+
 def game_loop():
+    global players_cards, dealers_cards
+    players_cards, dealers_cards = [], []  # reset each round
     set_deck()
     for i in range(2):
         players_cards.append(choose_card())
@@ -42,8 +89,24 @@ def game_loop():
 
     
     print(f"dealers card is {dealers_cards[0]}")
-    time.sleep(0.5)
+    sleep(0.5)
     print(f"Your cards are {players_cards[0]} and {players_cards[1]}")
     hit_stand()
+    continue_or_stop = input("continue or stop? ")
+    while True:
+        if continue_or_stop == "continue":
+            game_loop()
+        elif continue_or_stop == "stop":
+            break
+        else:
+            print("input valid answer!")
 
+    
+    
+
+    
+    
 game_loop()
+    
+
+
