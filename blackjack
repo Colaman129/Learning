@@ -92,8 +92,9 @@ def game_loop():
     sleep(0.5)
     print(f"Your cards are {players_cards[0]} and {players_cards[1]}")
     hit_stand()
-    continue_or_stop = input("continue or stop? ")
+    
     while True:
+        continue_or_stop = input("continue or stop? ")
         if continue_or_stop == "continue":
             game_loop()
         elif continue_or_stop == "stop":
